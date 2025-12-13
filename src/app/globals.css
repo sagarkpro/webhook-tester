@@ -1,26 +1,57 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
+  --breakpoint-2xs: 240px;
+  --color-primary: #fd5c63;
   --color-background: var(--background);
+  --color-background-contrast: #2c2c2c;
+  --color-background-light: #4b4b4b;
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+:root {
+  --color-background-light: #4b4b4b;
+  --primary: #fb5b63;
+  --background: #0a0a0a;
+  --foreground: #ededed;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+.p-dialog-header, .p-dialog-content{
+  background: var(--color-background-contrast);
+}
+
+.p-dialog-header{
+  border-top-left-radius: 1.25rem;
+  border-top-right-radius: 1.25rem;
+}
+
+.p-dialog-content{
+  border-bottom-left-radius: 1.25rem;
+  border-bottom-right-radius: 1.25rem;
+}
+
+.p-dialog .p-dialog-header .p-dialog-header-icon:enabled:hover {
+	color: #000000;
+	background: #f3f4f6;
+	border-color: none;
+}
+
+.p-dialog .p-dialog-header .p-dialog-header-icon:enabled {
+	color: black;
+	background: var(--color-background-light);
+	border-color: none;
+}
+
+.p-accordion .p-accordion-header:not(.p-disabled).p-highlight .p-accordion-header-link, .p-accordion .p-accordion-content, .p-accordion .p-accordion-header:not(.p-highlight):not(.p-disabled) .p-accordion-header-link{
+  background-color: var(--color-background-contrast);
+  color: white;
+  border: none;
 }
