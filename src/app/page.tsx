@@ -33,7 +33,7 @@ export default async function LogsPage() {
 	const logs = data ?? [];
 
 	return (
-		<div className="flex w-full justify-center items-center p-8">
+		<div className="flex w-full sm:justify-center items-center p-8">
 			<div className="w-300">
 				<div className="min-h-screen w-full text-xl font-semibold">
 					<h1 className="text-3xl font-bold mb-4">API Logs</h1>
