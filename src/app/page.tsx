@@ -50,7 +50,7 @@ export default async function LogsPage() {
 										header={
 											<div className="w-full flex justify-between items-center">
 												<div>
-													Log ID {log.id} - {new Date(log.timestamp).toLocaleString("en-IN", { timeZone: "Asia/Kolkata",});}
+													Log ID {log.id} - {new Date(log.timestamp).toLocaleString("en-IN", { timeZone: "Asia/Kolkata",})}
 												</div>
 												<DeleteLog logId={log.id} />
 											</div>
