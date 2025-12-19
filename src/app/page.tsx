@@ -10,6 +10,7 @@ async function fetchLogs() {
 	const protocol = process.env.NODE_ENV === "development" ? "http" : "https";
 	const res = await fetch(`${protocol}://${host}/api/logs`, {
 		method: "GET",
+		cache: "no-store"
 	});
 	if (res.ok) {
 		return {
