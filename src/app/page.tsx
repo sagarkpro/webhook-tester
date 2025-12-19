@@ -2,30 +2,34 @@ export const dynamic = "force-dynamic";
 
 import { Accordion, AccordionTab } from "primereact/accordion";
 import DeleteLog from "./_components/DeleteLog";
+import { headers } from "next/headers";
 
 async function fetchLogs() {
-	try{
-		const res = await fetch(`/api/logs`, {
-		method: "GET",
-		cache: "no-store"
-	});
-	if (res.ok) {
-		return {
-			data: await res.json(),
-			error: "",
-		};
-	}
-	return {
-		data: null,
-		error: res || "Error in fetching logs",
-	};
-	}
-	catch(err){
-		console.log("Error fetching db logs: ", err);
-		return{
-			data: null,
-			error: err
+	try {
+		const h = await headers();
+		const host = h.get("host");
+		const protocol = process.env.NODE_ENV === "development" ? "http" : "https";
+
+		const res = await fetch(`${protocol}://${host}/api/logs`, {
+			method: "GET",
+			cache: "no-store",
+		});
+		if (res.ok) {
+			return {
+				data: await res.json(),
+				error: "",
+			};
 		}
+		return {
+			data: null,
+			error: res || "Error in fetching logs",
+		};
+	} catch (err) {
+		console.log("Error fetching db logs: ", err);
+		return {
+			data: null,
+			error: err,
+		};
 	}
 }
 
@@ -56,7 +60,7 @@ export default async function LogsPage() {
 										header={
 											<div className="w-full flex justify-between items-center">
 												<div>
-													Log ID {log.id} - {new Date(log.timestamp).toLocaleString("en-IN", { timeZone: "Asia/Kolkata",})}
+													Log ID {log.id} - {new Date(log.timestamp).toLocaleString("en-IN", { timeZone: "Asia/Kolkata" })}
 												</div>
 												<DeleteLog logId={log.id} />
 											</div>
