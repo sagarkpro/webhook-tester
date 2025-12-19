@@ -4,7 +4,8 @@ import { Accordion, AccordionTab } from "primereact/accordion";
 import DeleteLog from "./_components/DeleteLog";
 
 async function fetchLogs() {
-	const res = await fetch(`/api/logs`, {
+	try{
+		const res = await fetch(`/api/logs`, {
 		method: "GET",
 		cache: "no-store"
 	});
@@ -18,6 +19,14 @@ async function fetchLogs() {
 		data: null,
 		error: res || "Error in fetching logs",
 	};
+	}
+	catch(err){
+		console.log("Error fetching db logs: ", err);
+		return{
+			data: null,
+			error: err
+		}
+	}
 }
 
 export default async function LogsPage() {
