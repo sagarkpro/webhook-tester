@@ -2,13 +2,9 @@ export const dynamic = "force-dynamic";
 
 import { Accordion, AccordionTab } from "primereact/accordion";
 import DeleteLog from "./_components/DeleteLog";
-import { headers } from "next/headers";
 
 async function fetchLogs() {
-	const h = await headers();
-	const host = h.get("host");
-	const protocol = process.env.NODE_ENV === "development" ? "http" : "https";
-	const res = await fetch(`${protocol}://${host}/api/logs`, {
+	const res = await fetch(`/api/logs`, {
 		method: "GET",
 		cache: "no-store"
 	});
