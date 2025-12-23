@@ -69,7 +69,7 @@ async function handleWebhook(req: Request) {
     RETURNING *
   `;
 
-  if (body.challenge) {
+  if (body?.challenge) {
     return NextResponse.json({ challenge: body.challenge }, { status: 200 })
   }
 
