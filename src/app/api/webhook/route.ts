@@ -47,7 +47,7 @@ async function parseBody(req: Request) {
   }
 }
 
-async function handleWebhook(req: Request){
+async function handleWebhook(req: Request) {
   const h = await headers();
   const body = await parseBody(req);
 
@@ -69,8 +69,8 @@ async function handleWebhook(req: Request){
     RETURNING *
   `;
 
-  if(body.challenge){
-    return NextResponse.json(body.challenge, { status: 200 })
+  if (body.challenge) {
+    return NextResponse.json({ challenge: body.challenge }, { status: 200 })
   }
 
   return NextResponse.json(log, { status: 201 });
