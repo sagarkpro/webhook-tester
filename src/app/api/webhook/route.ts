@@ -26,15 +26,18 @@ async function parseBody(req: Request) {
 
   try {
     if (contentType.includes("application/json")) {
+      console.log("parsing application/json body");
       return await req.json();
     }
 
     if (contentType.includes("multipart/form-data")) {
+      console.log("parsing multipart/form-data body");
       const formData = await req.formData();
       return formDataToJson(formData);
     }
 
     if (contentType.includes("application/x-www-form-urlencoded")) {
+      console.log("parsing application/x-www-form-urlencoded body");
       const text = await req.text();
       return Object.fromEntries(new URLSearchParams(text));
     }
