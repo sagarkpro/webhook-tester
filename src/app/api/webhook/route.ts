@@ -49,6 +49,7 @@ async function parseBody(req: Request) {
 
 async function handleWebhook(req: Request){
   const h = await headers();
+  const body = await parseBody(req);
 
   const logItem = {
     timestamp: new Date().toISOString(),
@@ -67,6 +68,10 @@ async function handleWebhook(req: Request){
     VALUES (${sql.json(logItem)})
     RETURNING *
   `;
+
+  if(body.challenge){
+    return NextResponse.json(body.challenge, { status: 200 })
+  }
 
   return NextResponse.json(log, { status: 201 });
 }
