@@ -55,7 +55,8 @@ async function parseBody(req: Request) {
 async function handleWebhook(req: Request) {
   const h = await headers();
   const body = await parseBody(req);
-
+  console.log("Parsed body: ", body);
+  
   const logItem = {
     timestamp: new Date().toISOString(),
     method: req.method,
