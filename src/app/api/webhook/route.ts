@@ -59,7 +59,7 @@ async function handleWebhook(req: Request) {
   const logItem = {
     timestamp: new Date().toISOString(),
     method: req.method,
-    body: await parseBody(req),
+    body: body,
     url: req.url,
     ip:
       h.get("x-forwarded-for")?.split(",")[0]?.trim() ||
