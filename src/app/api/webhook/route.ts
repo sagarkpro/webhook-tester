@@ -23,6 +23,7 @@ function formDataToJson(formData: FormData) {
 
 async function parseBody(req: Request) {
   const contentType = req.headers.get("content-type") || "";
+  let text;
 
   try {
     if (contentType.includes("application/json")) {
@@ -30,24 +31,25 @@ async function parseBody(req: Request) {
       return await req.json();
     }
 
-    if (contentType.includes("multipart/form-data")) {
+    else if (contentType.includes("multipart/form-data")) {
       console.log("parsing multipart/form-data body");
       const formData = await req.formData();
       return formDataToJson(formData);
     }
 
-    if (contentType.includes("application/x-www-form-urlencoded")) {
+    else if (contentType.includes("application/x-www-form-urlencoded")) {
       console.log("parsing application/x-www-form-urlencoded body");
       const text = await req.text();
       return Object.fromEntries(new URLSearchParams(text));
     }
 
     // fallback (raw text)
-    const text = await req.text();
+    else
+      text = await req.text();
     return text ? { raw: text } : null;
-  } catch(err) {
+  } catch (err) {
     console.log(err);
-    
+
     return { error: "Failed to parse body" };
   }
 }
@@ -56,7 +58,7 @@ async function handleWebhook(req: Request) {
   const h = await headers();
   const body = await parseBody(req);
   console.log("Parsed body: ", body);
-  
+
   const logItem = {
     timestamp: new Date().toISOString(),
     method: req.method,
