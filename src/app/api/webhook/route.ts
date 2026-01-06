@@ -45,7 +45,9 @@ async function parseBody(req: Request) {
     // fallback (raw text)
     const text = await req.text();
     return text ? { raw: text } : null;
-  } catch {
+  } catch(err) {
+    console.log(err);
+    
     return { error: "Failed to parse body" };
   }
 }
