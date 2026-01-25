@@ -7,7 +7,7 @@ export async function GET() {
   console.log(`[${new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata",})}]: making db call to fetch logs`);
   
   const logs = await sql`
-  SELECT "id", "timestamp", "logItem"
+  SELECT "id", "created_at", "log_item"
   FROM cursed.webhook_logs
   ORDER BY "created_at" DESC
 `;
