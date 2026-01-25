@@ -53,21 +53,21 @@ export default async function LogsPage() {
 					<div className="flex flex-col gap-4">
 						{logs.length === 0 && <div className="p-4 rounded-xl bg-background-contrast">No logs found.</div>}
 
-						{logs.map((log: { id: string; timestamp: string; logItem: string }) => (
+						{logs.map((log: { id: string; created_at: string; log_item: string }) => (
 							<div key={log.id} className="w-full">
 								<Accordion multiple className="bg-black">
 									<AccordionTab
 										header={
 											<div className="w-full flex justify-between items-center">
 												<div>
-													Log ID {log.id} - {new Date(log.timestamp).toLocaleString("en-IN", { timeZone: "Asia/Kolkata" })}
+													Log ID {log.id} - {new Date(log.created_at).toLocaleString("en-IN", { timeZone: "Asia/Kolkata" })}
 												</div>
 												<DeleteLog logId={log.id} />
 											</div>
 										}
 									>
 										<pre className="m-0 p-3 rounded-md bg-background-contrast overflow-x-auto whitespace-pre text-white font-semibold">
-											<code>{JSON.stringify(log.logItem, null, 2)}</code>
+											<code>{JSON.stringify(log.log_item, null, 2)}</code>
 										</pre>
 									</AccordionTab>
 								</Accordion>

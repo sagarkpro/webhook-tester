@@ -72,7 +72,7 @@ async function handleWebhook(req: Request) {
   };
 
   const [log] = await sql`
-    INSERT INTO experiments.logs ("logItem")
+    INSERT INTO cursed.webhook_logs ("log_item")
     VALUES (${sql.json(logItem)})
     RETURNING *
   `;

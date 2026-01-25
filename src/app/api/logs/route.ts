@@ -8,8 +8,8 @@ export async function GET() {
   
   const logs = await sql`
   SELECT "id", "timestamp", "logItem"
-  FROM experiments.logs
-  ORDER BY "timestamp" DESC
+  FROM cursed.webhook_logs
+  ORDER BY "created_at" DESC
 `;
 
   return NextResponse.json(logs);
