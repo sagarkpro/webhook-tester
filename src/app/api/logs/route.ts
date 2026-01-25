@@ -19,7 +19,7 @@ export async function DELETE(req: Request) {
   const id = (await req.json()).id;
 
   await sql`
-    DELETE FROM experiments.logs WHERE id = ${id}
+    DELETE FROM cursed.webhook_logs WHERE id = ${id}
   `;
 
   return NextResponse.json({ success: true });
