@@ -1,6 +1,5 @@
-import sql from "@/lib/db";
+import { createWebhookLogsApi } from "@/app/lib/webhookApis";
 import { headers } from "next/headers";
-import { NextResponse } from "next/server";
 
 function formDataToJson(formData: FormData) {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -59,29 +58,21 @@ async function handleWebhook(req: Request) {
   const body = await parseBody(req);
   console.log("Parsed body: ", body);
 
-  const logItem = {
-    timestamp: new Date().toISOString(),
-    method: req.method,
-    body: body,
-    url: req.url,
-    ip:
-      h.get("x-forwarded-for")?.split(",")[0]?.trim() ||
-      h.get("x-real-ip") ||
-      "unknown",
-    headers: Object.fromEntries(req.headers.entries()),
+  const payload = {
+    logItem: {
+      timestamp: new Date().toISOString(),
+      method: req.method,
+      body: body,
+      url: req.url,
+      ip:
+        h.get("x-forwarded-for")?.split(",")[0]?.trim() ||
+        h.get("x-real-ip") ||
+        "unknown",
+      headers: Object.fromEntries(req.headers.entries()),
+    }
   };
 
-  const [log] = await sql`
-    INSERT INTO cursed.webhook_logs ("log_item")
-    VALUES (${sql.json(logItem)})
-    RETURNING *
-  `;
-
-  if (body?.challenge) {
-    return NextResponse.json({ challenge: body.challenge }, { status: 200 })
-  }
-
-  return NextResponse.json(log, { status: 201 });
+  return await createWebhookLogsApi(JSON.stringify(payload));
 }
 
 export async function POST(req: Request) {
