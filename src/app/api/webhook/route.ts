@@ -72,7 +72,17 @@ async function handleWebhook(req: Request) {
     }
   };
 
-  return await createWebhookLogsApi(JSON.stringify(payload));
+  const upstreamRes = await createWebhookLogsApi(JSON.stringify(payload));
+  
+  // IMPORTANT: consume the response
+  const text = await upstreamRes.text();
+
+  return new Response(text, {
+    status: upstreamRes.status,
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
 }
 
 export async function POST(req: Request) {
