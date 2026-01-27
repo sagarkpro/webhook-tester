@@ -2,6 +2,7 @@
 @import "tw-animate-css";
 
 @theme inline {
+  --radius: 0.25rem;
   --breakpoint-2xs: 240px;
   --color-primary: #fd5c63;
   --color-background-contrast: #2c2c2c;
@@ -86,38 +87,42 @@
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }
 }
 
-.p-dialog-header, .p-dialog-content{
+.p-dialog-header,
+.p-dialog-content {
   background: var(--color-background-contrast);
 }
 
-.p-dialog-header{
+.p-dialog-header {
   border-top-left-radius: 1.25rem;
   border-top-right-radius: 1.25rem;
 }
 
-.p-dialog-content{
+.p-dialog-content {
   border-bottom-left-radius: 1.25rem;
   border-bottom-right-radius: 1.25rem;
 }
 
 .p-dialog .p-dialog-header .p-dialog-header-icon:enabled:hover {
-	color: #000000;
-	background: #f3f4f6;
-	border-color: none;
+  color: #000000;
+  background: #f3f4f6;
+  border-color: none;
 }
 
 .p-dialog .p-dialog-header .p-dialog-header-icon:enabled {
-	color: black;
-	background: var(--color-background-light);
-	border-color: none;
+  color: black;
+  background: var(--color-background-light);
+  border-color: none;
 }
 
-.p-accordion .p-accordion-header:not(.p-disabled).p-highlight .p-accordion-header-link, .p-accordion .p-accordion-content, .p-accordion .p-accordion-header:not(.p-highlight):not(.p-disabled) .p-accordion-header-link{
+.p-accordion .p-accordion-header:not(.p-disabled).p-highlight .p-accordion-header-link,
+.p-accordion .p-accordion-content,
+.p-accordion .p-accordion-header:not(.p-highlight):not(.p-disabled) .p-accordion-header-link {
   background-color: var(--color-background-contrast);
   color: white;
   border: none;
