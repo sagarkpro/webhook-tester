@@ -1,4 +1,4 @@
-import { apiFetch } from "./interceptedFetch";
+import { apiFetch } from "../interceptedFetch";
 
 export async function listWebhookLogsApi(){
   return await apiFetch("/webhook-tester", {

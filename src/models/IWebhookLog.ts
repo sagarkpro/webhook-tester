@@ -1,0 +1,1 @@
+export default interface IWebhookLog { id: string; createdAt: string; logItem: string }

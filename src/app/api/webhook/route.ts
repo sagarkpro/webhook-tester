@@ -1,4 +1,4 @@
-import { createWebhookLogsApi } from "@/app/lib/webhookApis";
+import { createWebhookLogsApi } from "../../../lib/api/webhookApis";
 import { headers } from "next/headers";
 
 function formDataToJson(formData: FormData) {

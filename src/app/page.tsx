@@ -2,7 +2,10 @@ export const dynamic = "force-dynamic";
 
 import { Accordion, AccordionTab } from "primereact/accordion";
 import DeleteLog from "./_components/DeleteLog";
-import { listWebhookLogsApi } from "./lib/webhookApis";
+import { listWebhookLogsApi } from "../lib/api/webhookApis";
+import { toast } from "sonner";
+import { Clipboard } from "lucide-react";
+import WebhookLogAccordionHeader from "./_components/WebhookLogAccordionHeader";
 
 async function fetchLogs() {
 	let body;
@@ -11,7 +14,7 @@ async function fetchLogs() {
 		body = await res.json();
 		if (res.ok) {
 			return {
-				data: body,
+				data: body.data,
 				error: "",
 			};
 		}
@@ -31,10 +34,6 @@ async function fetchLogs() {
 export default async function LogsPage() {
 	const { data, error } = await fetchLogs();
 
-	if (error) {
-		console.error("Error fetching logs:", error);
-	}
-
 	const logs = data ?? [];
 
 	return (
@@ -46,21 +45,14 @@ export default async function LogsPage() {
 					<p className="mb-3">Showing the most recent {logs.length} log entries.</p>
 
 					<div className="flex flex-col gap-4">
-						{logs?.length === 0 && <div className="p-4 rounded-xl bg-background-contrast">
-							{error?.message ? "Error: " + error?.message : "No logs found."}
-						</div>}
+						{logs?.length === 0 && <div className="p-4 rounded-xl bg-background-contrast">{error?.message ? "Error: " + error?.message : "No logs found."}</div>}
 
 						{logs?.map((log: { id: string; createdAt: string; logItem: string }) => (
 							<div key={log.id} className="w-full">
 								<Accordion multiple className="bg-black">
 									<AccordionTab
 										header={
-											<div className="w-full flex justify-between items-center">
-												<div>
-													Log ID {log.id} - {new Date(log.createdAt).toLocaleString("en-IN", { timeZone: "Asia/Kolkata" })}
-												</div>
-												<DeleteLog logId={log.id} />
-											</div>
+											<WebhookLogAccordionHeader log={log}/>
 										}
 									>
 										<pre className="m-0 p-3 rounded-md bg-background-contrast overflow-x-auto whitespace-pre text-white font-semibold">

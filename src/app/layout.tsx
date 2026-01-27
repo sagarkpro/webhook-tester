@@ -4,6 +4,7 @@ import "./globals.css";
 import "primereact/resources/themes/lara-light-cyan/theme.css";
 import { PrimeReactProvider } from "primereact/api";
 import QueryProvider from "./queryProvider";
+import { Toaster } from "sonner";
 
 const geistSans = Geist({
 	variable: "--font-geist-sans",
@@ -31,6 +32,7 @@ export default function RootLayout({
 				<QueryProvider>
 					<PrimeReactProvider>{children}</PrimeReactProvider>
 				</QueryProvider>
+				<Toaster position="top-right"/>
 			</body>
 		</html>
 	);
